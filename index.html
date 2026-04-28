@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro | Pocket Option</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+}
+
+.container {
+  max-width: 400px;
+  margin: 60px auto;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #22c55e;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+#msg {
+  text-align: center;
+  margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Acceso Pocket Option</h2>
+  <p style="text-align:center;">Solicita tu acceso completando el formulario</p>
+
+  <form id="form">
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="email" id="email" placeholder="Correo electrónico" required>
+    <input type="text" id="username" placeholder="Usuario" required>
+    <input type="password" id="password" placeholder="Contraseña segura" required>
+    <input type="text" id="pais" placeholder="País">
+    <input type="text" id="telefono" placeholder="Teléfono">
+
+    <button type="submit">Enviar solicitud</button>
+  </form>
+
+  <div id="msg"></div>
+</div>
+
+<script>
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const msg = document.getElementById('msg');
+  msg.innerHTML = "Enviando...";
+
+  const data = {
+    nombre: form.nombre.value,
+    email: form.email.value,
+    username: form.username.value,
+    password: form.password.value,
+    pais: form.pais.value,
+    telefono: form.telefono.value
+  };
+
+  try {
+    const res = await fetch('/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    msg.innerHTML = result.message;
+
+  } catch (err) {
+    msg.innerHTML = "Error de conexión";
+  }
+});
+</script>
+
+</body>
+</html>
